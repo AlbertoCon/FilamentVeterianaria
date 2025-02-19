@@ -71,6 +71,15 @@ class PatientResource extends Resource
                 Tables\Columns\TextColumn::make('owner.name')
                 ->searchable(),
             ])
+            ->headerActions([
+                //Boton para generar el pdf de los pacientes
+                Tables\Actions\Action::make('Download PDF')
+                ->label('Download PDF')
+                ->url(route('patients.pdf.general')) // Llama a la nueva ruta sin parámetros
+                ->openUrlInNewTab(),
+                
+            
+            ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                 ->options([
@@ -81,12 +90,18 @@ class PatientResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
 
+                
                 ]),
+
+                
             ]);
     }
 
